@@ -6,9 +6,10 @@ from adafruit_circuitplayground.express import cpx
 import board
 import busio
 import digitalio
-import time
-import struct
+import os
 import pulseio
+import struct
+import time
 
 # See https://gist.github.com/francis2110/8f69843dd57ae07dce80.
 PLAY_IR_CODES = [0xdf, 0x20, 0xf2, 0x0d]
@@ -63,6 +64,11 @@ encoder = adafruit_irremote.GenericTransmit(header=[9500, 4500], one=[550, 550],
 time_since_face_seen = 0
 time_face_seen = 0
 is_playing = True
+
+wavs = os.listdir("wavs")
+for wav in wavs:
+    print("Playing wavs/" + wav)
+    cpx.play_file("wavs/" + wav)
 
 # Keep looping and reading the person sensor results.
 while True:
